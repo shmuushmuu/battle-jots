@@ -11,10 +11,17 @@ Game.init(
         id: {
             type: DataTypes.STRING,
             allowNull: false,
-            primaryKey: true
-        }
-        //
-    }
+            primaryKey: true,
+            autoIncrement: true
+        },
+        user_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'user',
+                key: 'id',
+            },
+        },
+    },
 )
 
 module.exports = User;
