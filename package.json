@@ -8,7 +8,7 @@
     "sync": "node db/sync",
     "seed": "node seeds/seed",
     "copy:env": "cp .env.EXAMPLE .env",
-    "watch": "nodemon server"
+    "watch": "nodemon server.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",

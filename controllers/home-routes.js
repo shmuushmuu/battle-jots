@@ -4,7 +4,10 @@ const {} = require('../models/');
 // get all posts for homepage
 router.get('/', async (req, res) => {
   try {
-    res.render('homepage');
+    res.render('homepage', {
+      //games, 
+      logged_in: req.session.loggedIn
+    });
   } catch (err) {
     res.status(500).json(err);
   }
