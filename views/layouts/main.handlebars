@@ -8,10 +8,25 @@
 </head>
 
 <body>
+  <nav>
+    {{#if logged_in}}
+    <a href="/profile">User Profile</a>
+    <button class="no-button" id="logout-link">logout</button>
+    {{else}}
+    <a href="/login">login</a>
+    {{/if}}
+  </nav>
   <main>
     {{{body}}}
   </main>
+  <footer>
+
+  </footer>
+  {{#if logged_in}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
 </body>
 
+
 </html>
-<script src="/js/logout.js"></script>
+
