@@ -9,11 +9,15 @@ let rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(rightGuessString);
 
 function initBoard() {
+  let jot = document.getElementById("jot-board");
   let board = document.getElementById("game-board");
+  let numBoard = document.getElementById("number-board");
 
   for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
     let row = document.createElement("div");
+    let numRow = document.createElement("div");
     row.className = "letter-row";
+    numRow.className = "number-row";
 
     for (let j = 0; j < 5; j++) {
       let box = document.createElement("div");
@@ -21,7 +25,16 @@ function initBoard() {
       row.appendChild(box);
     }
 
-    board.appendChild(row);
+    for (let k = 0; k < 1; k++) {
+      let numBox = document.createElement("div");
+      numBox.className = "number-box";
+      numRow.appendChild(numBox);
+    }
+
+    board.appendChild(row)
+    numBoard.appendChild(numRow)
+    jot.appendChild(board)
+    jot.appendChild(numBoard)
   }
 }
 

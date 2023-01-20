@@ -2,13 +2,39 @@ h1 {
     text-align: center;
    }
    
+   #jot-board {
+     display: flex;
+     align-items: center;
+     justify-content: space-evenly;
+     flex-direction: row;
+   }
    #game-board {
      display: flex;
      align-items: center;
      flex-direction: column;
    }
+
+   #number-board {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
    
    .letter-box {
+     border: 2px solid gray;
+     border-radius: 3px;
+     margin: 2px;
+     font-size: 2.5rem;
+     font-weight: 700;
+     height: 3rem;
+     width: 3rem;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-transform: uppercase;
+   }
+
+   .number-box {
      border: 2px solid gray;
      border-radius: 3px;
      margin: 2px;
@@ -29,6 +55,11 @@ h1 {
    .letter-row {
      display: flex;
    }
+   
+   .number-row {
+     display: flex;
+   }
+
    
    #keyboard-cont {
      margin: 1rem 0;
