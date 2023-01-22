@@ -24,4 +24,4 @@ Game.init(
     },
 )
 
-module.exports = User;
+module.exports = Game;
