@@ -11,30 +11,27 @@ console.log(rightGuessString);
 function initBoard() {
   let jot = document.getElementById("jot-board");
   let board = document.getElementById("game-board");
-  let numBoard = document.getElementById("number-board");
+  let oppBoard = document.getElementById("opponent-board");
 
   for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
     let row = document.createElement("div");
-    let numRow = document.createElement("div");
+    let oppRow = document.createElement("div");
     row.className = "letter-row";
-    numRow.className = "number-row";
+    oppRow.className = "opponent-row";
 
     for (let j = 0; j < 5; j++) {
       let box = document.createElement("div");
       box.className = "letter-box";
       row.appendChild(box);
-    }
-
-    for (let k = 0; k < 1; k++) {
-      let numBox = document.createElement("div");
-      numBox.className = "number-box";
-      numRow.appendChild(numBox);
+      let oppBox = document.createElement("div");
+      oppBox.className = "opponent-box";
+      oppRow.appendChild(oppBox);
     }
 
     board.appendChild(row)
-    numBoard.appendChild(numRow)
+    oppBoard.appendChild(oppRow)
+    jot.appendChild(oppBoard)
     jot.appendChild(board)
-    jot.appendChild(numBoard)
   }
 }
 
@@ -57,7 +54,7 @@ function shadeKeyBoard(letter, color) {
 }
 
 function deleteLetter() {
-  let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+  let row = document.getElementsByClassName("letter-row")[NUMBER_OF_GUESSES - guessesRemaining];
   let box = row.children[nextLetter - 1];
   box.textContent = "";
   box.classList.remove("filled-box");
@@ -66,69 +63,71 @@ function deleteLetter() {
 }
 
 function checkGuess() {
-  let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+  let row = document.getElementsByClassName("letter-row")[NUMBER_OF_GUESSES - guessesRemaining];
   let guessString = "";
   let rightGuess = Array.from(rightGuessString);
-
+  
   for (const val of currentGuess) {
-    guessString += val;
+      guessString += val;
   }
-
+  
   if (guessString.length != 5) {
-    toastr.error("Not enough letters!");
-    return;
-  }
-
-  if (!WORDS.includes(guessString)) {
-    toastr.error("Word not in list!");
-    return;
-  }
-
-  var letterColor = ["gray", "gray", "gray", "gray", "gray"];
-
-  //check green
-  for (let i = 0; i < 5; i++) {
-    if (rightGuess[i] == currentGuess[i]) {
-      letterColor[i] = "green";
-      rightGuess[i] = "#";
+      toastr.error("Not enough letters!");
+      return;
     }
-  }
-
-  //check yellow
-  //checking guess letters
-  for (let i = 0; i < 5; i++) {
-    if (letterColor[i] == "green") continue;
-
-    //checking right letters
+    
+    if (!WORDS.includes(guessString)) {
+        toastr.error("Word not in list!");
+        return;
+    }
+    
+    var letterColor = ["gray", "gray", "gray", "gray", "gray"];
+    
+    //check green
+    for (let i = 0; i < 5; i++) {
+        if (rightGuess[i] == currentGuess[i]) {
+            letterColor[i] = "green";
+            rightGuess[i] = "#";
+            numCorrect++;
+        }
+    }
+    
+    //check yellow
+    //checking guess letters
+    for (let i = 0; i < 5; i++) {
+        if (letterColor[i] == "green") continue;
+        
+        //checking right letters
     for (let j = 0; j < 5; j++) {
-      if (rightGuess[j] == currentGuess[i]) {
-        letterColor[i] = "yellow";
-        rightGuess[j] = "#";
+        if (rightGuess[j] == currentGuess[i]) {
+            letterColor[i] = "yellow";
+            rightGuess[j] = "#";
+            numCorrect++;
       }
     }
-  }
+}
 
-  for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 5; i++) {
     let box = row.children[i];
     let delay = 250 * i;
     setTimeout(() => {
-      //flip box
-      animateCSS(box, "flipInX");
-      //shade box
-      box.style.backgroundColor = letterColor[i];
-      shadeKeyBoard(guessString.charAt(i) + "", letterColor[i]);
+        //flip box
+        animateCSS(box, "flipInX");
+        //shade box
+        box.style.backgroundColor = letterColor[i];
+        shadeKeyBoard(guessString.charAt(i) + "", letterColor[i]);
     }, delay);
-  }
+}
 
-  if (guessString === rightGuessString) {
+if (guessString === rightGuessString) {
     toastr.success("You guessed right! Game over!");
     guessesRemaining = 0;
     return;
-  } else {
+} else {
     guessesRemaining -= 1;
     currentGuess = [];
     nextLetter = 0;
-
+    
     if (guessesRemaining === 0) {
       toastr.error("You've run out of guesses! Game over!");
       toastr.info(`The right word was: "${rightGuessString}"`);
@@ -142,7 +141,7 @@ function insertLetter(pressedKey) {
   }
   pressedKey = pressedKey.toLowerCase();
 
-  let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+  let row = document.getElementsByClassName("letter-row")[NUMBER_OF_GUESSES - guessesRemaining];
   let box = row.children[nextLetter];
   animateCSS(box, "pulse");
   box.textContent = pressedKey;
