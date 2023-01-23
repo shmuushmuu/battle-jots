@@ -2,9 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 //const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
-class Game extends Model {
-
-} 
+class Game extends Model {} 
 
 Game.init(
     {
@@ -12,18 +10,23 @@ Game.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
         },
-        user_id: {
+        score: {
             type: DataTypes.INTEGER,
-            references: {
-                model: 'user',
-                key: 'id',
-            },
+            allowNull: false, 
         },
-    },{
-        sequelize
-    }
+        word: {
+            type: DataTypes.STRING,
+            allowNull: false,       
+        } // TODO: GAME DATE WILL GO HERE
+    },
+    {
+        sequelize,
+        timestamps: true,
+        underscored: true,
+        modelName: 'game',
+      }
 )
 
 module.exports = Game;

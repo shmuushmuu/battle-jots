@@ -1,16 +1,34 @@
 const User = require('./User');
+const Friends = require('./Friends');
+const Challenge = require('./Challenge');
 const Game = require('./Game');
 
-// ASSOCIATIONS HERE
-User.hasMany(Game, {
-  foreignKey: 'user_id',
+User.belongsToMany(User,{
+  as: 'sender',
+  foreignKey: 'sender_id',
+  through: Friends
+});
+
+User.belongsToMany(User,{
+  as: 'receiver',
+  foreignKey: 'receiver_id',
+  through: Friends
+});
+
+User.hasMany(Challenge,{
+  foreignKey: 'challenger_id'
+});
+
+User.hasMany(Challenge,{
+  foreignKey: 'invitee_id'
+});
+
+Game.hasOne(Challenge, {
+  foreignKey: 'game_id',
   onDelete: 'CASCADE'
 });
-
-Game.belongsTo(User, {
-  foreignKey: 'user_id'
-});
+Challenge.belongsTo(Game);
 
 
 
-module.exports = { User, Game };
+module.exports = { User, Friends, Challenge, Game };

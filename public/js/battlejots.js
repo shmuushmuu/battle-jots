@@ -88,7 +88,6 @@ function checkGuess() {
         if (rightGuess[i] == currentGuess[i]) {
             letterColor[i] = "green";
             rightGuess[i] = "#";
-            numCorrect++;
         }
     }
     
@@ -102,7 +101,6 @@ function checkGuess() {
         if (rightGuess[j] == currentGuess[i]) {
             letterColor[i] = "yellow";
             rightGuess[j] = "#";
-            numCorrect++;
       }
     }
 }
