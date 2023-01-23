@@ -4,13 +4,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
   <title>Battle Jots!</title>
 </head>
 
 <body>
   <nav>
     {{#if logged_in}}
-    <a href="/js/profile">User Profile</a>
+    <a href="/profile">User Profile</a>
     <button class="no-button" id="logout-link">logout</button>
     {{else}}
     <a href="/login">login</a>

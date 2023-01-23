@@ -9,7 +9,7 @@ class Game extends Model {
 Game.init(
     {
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
@@ -21,7 +21,9 @@ Game.init(
                 key: 'id',
             },
         },
-    },
+    },{
+        sequelize
+    }
 )
 
 module.exports = Game;
