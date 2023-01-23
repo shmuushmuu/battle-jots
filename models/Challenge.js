@@ -37,11 +37,15 @@ Challenge.init(
     word: {
       type: DataTypes.STRING,
       allowNull: false,      
+    },
+    status: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     }
   },
   {
     sequelize,
-    timestamps: false,
+    timestamps: true,
     underscored: true,
     modelName: 'challenge',
   }

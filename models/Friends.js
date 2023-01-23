@@ -9,26 +9,33 @@ Friends.init(
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,      
+      primaryKey: true,
+      autoIncrement: true,      
     },
-    user_id: {
+    sender_id: {
+      type: DataTypes.INTEGER,
+      foreignKey: true,
       references: {
         model: 'user',
         key: 'id',
       }
     },
-    friend: {
+    receiver_id: {
       type: DataTypes.INTEGER,
       foreignKey: true,
       references: {
         model: 'user',
         key: 'friends',
       }
+    },
+    status: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     }
   },
   {
     sequelize,
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
     underscored: true,
     modelName: 'friends',

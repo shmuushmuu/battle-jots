@@ -12,34 +12,18 @@ Game.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        challenger_id: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            references: {
-                model: 'user',
-                key: 'username',
-            },
-        },
-        invitee_id: {
+        score: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'user',
-                key: 'username',
-            },        
+            allowNull: false, 
         },
         word: {
             type: DataTypes.STRING,
-            allowNull: false,     
-            references: {
-                model: 'challenge',
-                key: 'word'
-            }       
+            allowNull: false,       
         } // TODO: GAME DATE WILL GO HERE
     },
     {
         sequelize,
-        timestamps: false,
+        timestamps: true,
         underscored: true,
         modelName: 'game',
       }
