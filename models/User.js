@@ -28,6 +28,27 @@ User.init(
       validate: {
         len: [4]
       }
+    },
+    friends: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'friends',
+        key: 'id',
+      },
+    },
+    challenges: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'challenge',
+        key: 'id',
+      },
+    },
+    games: {
+      type: DataTypes.INTEGER,
+      references : {
+        model: 'game',
+        key: 'id',
+      }
     }
   },
   {
