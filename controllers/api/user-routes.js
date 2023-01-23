@@ -89,7 +89,7 @@ router.post('/addUser', async (req, res) => {
   try {
 
     const newFriend = await Friends.create({
-      sender_id: req.body.sender_id,
+      sender_id: req.session.userId,
       receiver_id: req.body.receiver_id,
       status: 0
     });

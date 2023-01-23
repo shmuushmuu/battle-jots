@@ -68,12 +68,45 @@ router.get('/profile', async (req, res) => {
     const receivedRequests = receivedRequestsData.map(receivedRequest=>receivedRequest.get({plain: true}));
     const sentRequests = sentRequestsData.map(sentRequest=>sentRequest.get({plain: true}));
 
+    const f = [];
+    for(const friend of friends){
+      let id = friend.receiver_id === req.session.userId? friend.sender_id: friend.receiver_id;
+      let user = await User.findByPk(id);
+      user = user.get({plain: true});
+      f.push({
+        ...friend,
+        username: user.username
+      });
+    }
+
+    const s = [];
+    for(const sent of sentRequests){
+      let user = await User.findByPk(sent.receiver_id);
+      user = user.get({plain: true});
+      s.push({
+        ...sent,
+        username: user.username
+      });
+    }
+
+    const r = [];
+    for(const received of receivedRequests){
+      let user = await User.findByPk(received.sender_id);
+      user = user.get({plain: true});
+      r.push({
+        ...received,
+        username: user.username
+      });
+    }
+    console.log(r)
+
+
     res.render('profile', {
       logged_in: req.session.loggedIn,
       username: req.session.username,
-      friends,
-      sentRequests,
-      receivedRequests
+      friends: f,
+      sentRequests: s,
+      receivedRequests: r
     });
   
 
