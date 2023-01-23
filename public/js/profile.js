@@ -1,12 +1,63 @@
-const challengeBtn = document.querySelector('.friends-row');
+const friendBtns = document.querySelector('.friends-row');
+const sentBtns =  document.querySelector('.sent-friends-row');
+const receivedBtns =  document.querySelector('.received-friends-row');
 const searchBtn = document.querySelector('.searchBtn');
 const searchField = document.querySelector('.searchField');
 const userList = document.querySelector(".userList");
 
-challengeBtn.addEventListener('click',(event)=>{
-	if(event.target.match('.challenge-btn')){
+const cancelFriendRequest = id => {
+	fetch('/api/users/addFriend',{
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({id: id})
+	}).then(response=>response.json())
+	.then(data=>{
+		console.log(data)
+		window.location.reload();
+	});
+}
+
+const acceptFriendRequest = id => {
+	fetch('/api/users/addUser',{
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({id: id})
+	}).then(response=>response.json())
+	.then(data=>{
+		console.log(data)
+		window.location.reload();
+	});
+}
+
+friendBtns.addEventListener('click',(event)=>{
+	if(event.target.matches('.challenge-btn')){
 		id = event.target.getAttribute('data-id');
 		console.log(id);
+	}
+});
+
+sentBtns.addEventListener('click',(event)=>{
+	if(event.target.matches('.cancel-btn')){
+		id = event.target.getAttribute('data-id');
+		console.log(id);
+		cancelFriendRequest(id);
+	}
+});
+
+receivedBtns.addEventListener('click',(event)=>{
+	if(event.target.matches('.cancel-btn')){
+		id = event.target.getAttribute('data-id');
+		console.log(id);
+		cancelFriendRequest(id);
+	}
+	else if(event.target.matches('.accept-btn')){
+		id = event.target.getAttribute('data-id');
+		console.log(id);
+		acceptFriendRequest(id);
 	}
 });
 
@@ -39,4 +90,21 @@ searchBtn.addEventListener('click',(event)=>{
 				userList.appendChild(li);
 			})
 		})
+});
+
+userList.addEventListener('click',(event)=>{
+	if(event.target.matches('.addUser')){
+		const id = event.target.getAttribute('data-id');
+		console.log(id);
+		fetch('/api/users/addUser',{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({receiver_id:id})
+		}).then(response=>response.json())
+		.then(data=>{
+			window.location.reload();
+		});
+	}
 });

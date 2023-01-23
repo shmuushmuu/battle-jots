@@ -12,22 +12,23 @@
 </div>
 <div class="container">
 	<h2>Sent Friend Requests</h2>
-	<div class="row border border-2 rounded friends-row">
+	<div class="row border border-2 rounded sent-friends-row">
 		{{#each sentRequests as |sentRequest|}}
 			<div class="col-12">
 				<h3>{{sentRequest.username}}</h3>
-				<button class="btn btn-primary cancel-btn" data-id="{{sentRequest.id}}">Cancel</button>
+				<button class="btn btn-danger cancel-btn" data-id="{{sentRequest.id}}">Cancel</button>
 			</div>
 		{{/each}}
 	</div>
 </div>
 <div class="container">
 	<h2>Incoming Friend Requests</h2>
-	<div class="row border border-2 rounded friends-row">
+	<div class="row border border-2 rounded received-friends-row">
 		{{#each receivedRequests as |receivedRequest|}}
 			<div class="col-12">
 				<h3>{{receivedRequest.username}}</h3>
-				<button class="btn btn-primary cancel-btn" data-id="{{receivedRequest.id}}">Decline</button>
+				<button class="btn btn-success accept-btn" data-id="{{receivedRequest.id}}">Accept</button>
+				<button class="btn btn-danger cancel-btn" data-id="{{receivedRequest.id}}">Decline</button>
 			</div>
 		{{/each}}
 	</div>
