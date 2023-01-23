@@ -30,6 +30,5 @@ Game.hasOne(Challenge, {
 Challenge.belongsTo(Game);
 
 
-// game hasOne Creator, Invitee
 
 module.exports = { User, Friends, Challenge, Game };

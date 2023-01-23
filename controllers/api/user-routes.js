@@ -17,6 +17,7 @@ router.get('/findUser', async (req, res) => {
   }
 });
 
+// creates a new user, saves it to the database, and returns the new user
 router.post('/', async (req, res) => {
   try {
     const newUser = await User.create({
@@ -36,6 +37,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// finds one user that matches the username sent in the request,
 router.post('/login', async (req, res) => {
   try {
     const user = await User.findOne({
