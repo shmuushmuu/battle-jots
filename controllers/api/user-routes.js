@@ -2,14 +2,19 @@ const router = require('express').Router();
 const Op = require('Sequelize').Op;
 const { User, Friends } = require('../../models');
 
-router.get('/findUser', async (req, res) => {
+router.post('/findUser', async (req, res) => {
+  console.log(req.body)
   try {
     const users = await User.findAll({
       where: {
         username: {
           [Op.like]: '%' + req.body.name + '%'
+        },
+        id: {
+          [Op.not]: req.session.userId
         }
-      }
+      },
+      attributes: ['id','username']
     });
     res.json({users});
   } catch(err){
