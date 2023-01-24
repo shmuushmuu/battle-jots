@@ -83,12 +83,25 @@ router.get('/sentChallenges', async (req,res) => {
 
 router.get('/receivedChallenges', async (req,res) => {
   try {
-    const receivedChallenges = await Challenge.findAll({
+    let challenges = await Challenge.findAll({
       where: {
         invitee_id: req.session.userId,
         status: 0
-      }
+      },
     });
+
+    challenges = challenges.map(c=>c.get({plain: true}));
+
+    let receivedChallenges = [];
+    for(const c of challenges){
+      let user = await User.findByPk(c.invitee_id);
+      //user = user.get({plain: true});
+      receivedChallenges.push({
+        ...c,
+        username: user.username
+      })
+    }
+    console.log(receivedChallenges);
 
     res.json(receivedChallenges)
   } catch (err){
@@ -98,12 +111,25 @@ router.get('/receivedChallenges', async (req,res) => {
 
 router.get('/acceptedChallenges', async (req,res) => {
   try {
-    const acceptedChallenges = await Challenge.findAll({
+    let challenges = await Challenge.findAll({
       where: {
         invitee_id: req.session.userId,
         status: 1
       }
     });
+
+    challenges = challenges.map(c=>c.get({plain: true}));
+
+    let acceptedChallenges = [];
+    for(const c of challenges){
+      let user = await User.findByPk(c.invitee_id);
+      user = user.get({plain: true});
+      acceptedChallenges.push({
+        ...c,
+        username: user.username
+      })
+    }
+    console.log(sentChallenges);
 
     res.json(acceptedChallenges)
   } catch (err){
