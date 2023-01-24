@@ -84,3 +84,7 @@ h1 {
      cursor: pointer;
      text-transform: uppercase;
    }
+
+   .secret {
+    visibility: hidden;
+   }

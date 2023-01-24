@@ -1,3 +1,5 @@
+import { WORDS } from "./words.js";
+
 const friendBtns = document.querySelector('.friends-row');
 const sentBtns = document.querySelector('.sent-friends-row');
 const receivedBtns = document.querySelector('.received-friends-row');
@@ -44,6 +46,11 @@ friendBtns.addEventListener('click', (event) => {
   if (event.target.matches('.challenge-btn')) {
     const invitee_id = event.target.getAttribute('data-id');
     const word = wordField.value;
+
+    if(!WORDS.includes(word)){
+      return alert('Not a valid 5-letter word')
+    }
+
     fetch('/api/challenges/', {
       method: 'POST',
       headers: {
