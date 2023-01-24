@@ -1,19 +1,31 @@
-<div class="card">
-  <div class="card-header">
-    <h2>Login</h2>
+<div class="row">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="text-dark col d-flex justify-content-center">Please Log in</h2>
+    </div>
+    <form id="login-form" class="card-body">
+      <div class="justify-content-center">
+        <label for="username-input-login">Username</label>
+        <input type="text" id="username-input-login" />
+      </div>
+      <div>
+        <label for="password-input-login" class="form-label">Password</label>
+        <input type="password" id="password-input-login" />
+      </div>
+      <button type="submit" id="login-btn" class="btn">Login!</button>
+      <a type="button" href="/signup">Sign up instead</a>
+    </form>
   </div>
-  <form id="login-form" class="card-body">
-    <div>
-      <label for="username-input-login">Username</label>
-      <input type="text" id="username-input-login" />
+
+<footer>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title text-dark ">Anonomus Kraken</h5>
+      <p class="card-text">Brought to you by Hayden, Cory, Sam, and Tanner</p>
+      <a href="https://github.com/shmuushmuu/battle-jots" target="_blank" class="btn btn-primary">Github Repo</a>
     </div>
-    <div>
-      <label for="password-input-login" class="form-label">Password</label>
-      <input type="password" id="password-input-login" />
-    </div>
-    <button type="submit" id="login-btn" class="btn">Login!</button>
-    <a type="button" href="/signup">Sign up instead</a>
-  </form>
-</div>
+  </div>
+</footer>
 
 <script src="/js/login.js"></script>
+</div> 

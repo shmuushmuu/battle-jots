@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "setup": "npm i && npm run copy:env && npm run sync && npm run seed",
+    "setup": "npm i && npm run sync && npm run seed",
     "start": "node server",
     "sync": "node db/sync",
     "seed": "node seeds/index.js",
