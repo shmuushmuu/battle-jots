@@ -67,7 +67,7 @@ friendBtns.addEventListener('click', (event) => {
 
 sentBtns.addEventListener('click', (event) => {
   if (event.target.matches('.cancel-btn')) {
-    id = event.target.getAttribute('data-id');
+    const id = event.target.getAttribute('data-id');
     console.log(id);
     cancelFriendRequest(id);
   }
@@ -75,12 +75,12 @@ sentBtns.addEventListener('click', (event) => {
 
 receivedBtns.addEventListener('click', (event) => {
   if (event.target.matches('.cancel-btn')) {
-    id = event.target.getAttribute('data-id');
+    const id = event.target.getAttribute('data-id');
     console.log(id);
     cancelFriendRequest(id);
   }
   else if (event.target.matches('.accept-btn')) {
-    id = event.target.getAttribute('data-id');
+    const id = event.target.getAttribute('data-id');
     console.log(id);
     acceptFriendRequest(id);
   }
