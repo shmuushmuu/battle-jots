@@ -5,6 +5,7 @@
 		{{#each friends as |friend|}}
 			<div class="col-12">
 				<h3>{{friend.username}}</h3>
+        <input class="word-field" data-id="word-field" data-type="text">Enter word</div>
 				<button class="btn btn-primary challenge-btn" data-id="{{friend.id}}">Challenge</button>
 			</div>
 		{{/each}}
@@ -38,7 +39,6 @@
 	<input class="searchField" placeholder="username"></input>
 	<button class="btn btn-success searchBtn">Search</button>
 	<ul class="userList">
-
 	</ul>
 </div>
 
