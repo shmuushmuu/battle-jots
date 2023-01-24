@@ -75,6 +75,7 @@ router.get('/profile', async (req, res) => {
       user = user.get({plain: true});
       f.push({
         ...friend,
+        user_id: id,
         username: user.username
       });
     }

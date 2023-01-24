@@ -3,8 +3,12 @@ const sentBtns = document.querySelector('.sent-friends-row');
 const receivedBtns = document.querySelector('.received-friends-row');
 const searchBtn = document.querySelector('.searchBtn');
 const searchField = document.querySelector('.searchField');
-const userList = document.querySelector(".userList");
+const userList = document.querySelector('.userList');
 const wordField = document.querySelector('.word-field');
+const challengeData = document.querySelector('.challenge-data');
+
+//Challenge Buttons
+const sentChallengesBtn = document.querySelector('.sent-challenges');
 
 const cancelFriendRequest = id => {
   fetch('/api/users/addFriend', {
@@ -38,17 +42,17 @@ friendBtns.addEventListener('click', (event) => {
   if (event.target.matches('.challenge-btn')) {
     const invitee_id = event.target.getAttribute('data-id');
     const word = wordField.value;
-
     fetch('/api/challenges/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        invitee_id,
-        word
+        invitee_id: invitee_id,
+        word: word
       })
-    })
+    }).then(response=> response.json())
+    .then(data=>console.log(data));
   }
 });
 
@@ -120,3 +124,30 @@ userList.addEventListener('click', (event) => {
       });
   }
 });
+
+// challenge button event listeners
+sentChallengesBtn.addEventListener('click', event => {
+  fetch('/api/challenges/sentChallenges')
+    .then(response => response.json())
+    .then(data=> {
+      console.log(data);
+      challengeData.innerHTML = "";
+      data.map(challenge=>{
+        const col = document.createElement('div');
+        col.setAttribute('class','col-12 bg bg-dark text-light mb-1');
+        const timestamp = document.createElement('p');
+        timestamp.textContent = "" + challenge.createdAt;
+        const title = document.createElement('h5');
+        title.textContent = "Invitee: " + challenge.username;
+        const word = document.createElement('pre');
+        word.setAttribute('class','border border-1 rounded m-1 p-1')
+        word.textContent = "The word: " + challenge.word;
+
+        col.appendChild(timestamp);
+        col.appendChild(title);
+        col.append(word);
+        challengeData.append(col)
+      })
+      //challengeData
+    });
+})
