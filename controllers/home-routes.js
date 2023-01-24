@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Friends, User } = require('../models/');
+const { Friends, User, Challenge } = require('../models/');
 const Op = require('Sequelize').Op;
 // get all posts for homepage
 router.get('/', async (req, res) => {
@@ -12,6 +12,26 @@ router.get('/', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+router.get('/game/:id', async (req,res)=>{
+  try {
+    const id = req.params.id;
+    const challengeData = await Challenge.findByPk(id);
+    const challenge = challengeData.get({plain: true});
+    console.log(challenge)
+    if(challenge.invitee_id!==req.session.userId || challenge.status!==1){
+      res.redirect('/');
+      return;
+    }
+
+    res.render('gamepage',{
+      challenge,
+      logged_in: req.session.loggedIn
+    })
+  } catch(err){
+    res.status(500).json(err);
+  }
+})
 
 router.get('/login', (req, res) => {
   if (req.session.loggedIn) {

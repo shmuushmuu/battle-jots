@@ -9,6 +9,8 @@ const challengeData = document.querySelector('.challenge-data');
 
 //Challenge Buttons
 const sentChallengesBtn = document.querySelector('.sent-challenges');
+const receivedChallengesBtn = document.querySelector('.received-challenges');
+const acceptedChallengesBtn = document.querySelector('.accepted-challenges');
 
 const cancelFriendRequest = id => {
   fetch('/api/users/addFriend', {
@@ -51,8 +53,8 @@ friendBtns.addEventListener('click', (event) => {
         invitee_id: invitee_id,
         word: word
       })
-    }).then(response=> response.json())
-    .then(data=>console.log(data));
+    }).then(response => response.json())
+      .then(data => console.log(data));
   }
 });
 
@@ -129,18 +131,18 @@ userList.addEventListener('click', (event) => {
 sentChallengesBtn.addEventListener('click', event => {
   fetch('/api/challenges/sentChallenges')
     .then(response => response.json())
-    .then(data=> {
+    .then(data => {
       console.log(data);
       challengeData.innerHTML = "";
-      data.map(challenge=>{
+      data.map(challenge => {
         const col = document.createElement('div');
-        col.setAttribute('class','col-12 bg bg-dark text-light mb-1');
+        col.setAttribute('class', 'col-12 bg bg-dark text-light mb-1');
         const timestamp = document.createElement('p');
         timestamp.textContent = "" + challenge.createdAt;
         const title = document.createElement('h5');
         title.textContent = "Invitee: " + challenge.username;
         const word = document.createElement('pre');
-        word.setAttribute('class','border border-1 rounded m-1 p-1')
+        word.setAttribute('class', 'border border-1 rounded m-1 p-1')
         word.textContent = "The word: " + challenge.word;
 
         col.appendChild(timestamp);
@@ -155,22 +157,27 @@ sentChallengesBtn.addEventListener('click', event => {
 receivedChallengesBtn.addEventListener('click', event => {
   fetch('/api/challenges/receivedChallenges')
     .then(response => response.json())
-    .then(data=> {
+    .then(data => {
       console.log(data);
       challengeData.innerHTML = "";
-      data.map(challenge=>{
+      data.map(challenge => {
         const col = document.createElement('div');
-        col.setAttribute('class','col-12 bg bg-dark text-light mb-1');
+        col.setAttribute('class', 'col-12 bg bg-dark text-light mb-1');
         const timestamp = document.createElement('p');
         timestamp.textContent = "" + challenge.createdAt;
         const title = document.createElement('h5');
-        title.textContent = "Invitee: " + challenge.username;
-        const word = document.createElement('pre');
-        word.setAttribute('class','border border-1 rounded m-1 p-1')
-        word.textContent = "The word: " + challenge.word;
+        title.textContent = "Challenger: " + challenge.username;
+        // const word = document.createElement('pre');
+        // word.setAttribute('class','border border-1 rounded m-1 p-1')
+        // word.textContent = "The word: " + challenge.word;
+        const acceptBtn = document.createElement('button');
+        acceptBtn.setAttribute('class', 'btn btn-secondary acceptChl mb-2');
+        acceptBtn.setAttribute('data-id',challenge.id);
+        acceptBtn.textContent = "Accept Challenge"
 
         col.appendChild(timestamp);
         col.appendChild(title);
+        col.appendChild(acceptBtn);
         challengeData.append(col)
       })
       //challengeData
@@ -180,24 +187,45 @@ receivedChallengesBtn.addEventListener('click', event => {
 acceptedChallengesBtn.addEventListener('click', event => {
   fetch('/api/challenges/acceptedChallenges')
     .then(response => response.json())
-    .then(data=> {
+    .then(data => {
       console.log(data);
       challengeData.innerHTML = "";
-      data.map(challenge=>{
+      data.map(challenge => {
         const col = document.createElement('div');
-        col.setAttribute('class','col-12 bg bg-dark text-light mb-1');
+        col.setAttribute('class', 'col-12 bg bg-dark text-light mb-1');
         const timestamp = document.createElement('p');
         timestamp.textContent = "" + challenge.createdAt;
         const title = document.createElement('h5');
-        title.textContent = "Invitee: " + challenge.username;
-        const word = document.createElement('pre');
-        word.setAttribute('class','border border-1 rounded m-1 p-1')
+        title.textContent = "Challenger: " + challenge.username;
+        const goBtn = document.createElement('button');
+        goBtn.setAttribute('class', 'btn btn-secondary goChl mb-2');
+        goBtn.setAttribute('data-id',challenge.id);
+        goBtn.textContent = "Play Game";
         //word.textContent = "The word: " + challenge.word;
 
         col.appendChild(timestamp);
         col.appendChild(title);
+        col.appendChild(goBtn);
         challengeData.append(col)
       })
       //challengeData
     });
+});
+
+challengeData.addEventListener('click', event => {
+  if (event.target.matches('.acceptChl')) {
+    const id = event.target.getAttribute('data-id');
+    fetch('/api/challenges/', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: id })
+    }).then(response=>response.json())
+    .then(data=>window.location.replace(`/game/${id}`))
+  }
+  else if(event.target.matches('.goChl')){
+    const id = event.target.getAttribute('data-id');
+    window.location.replace(`/game/${id}`);
+  }
 })

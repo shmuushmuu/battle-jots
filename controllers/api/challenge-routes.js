@@ -94,7 +94,7 @@ router.get('/receivedChallenges', async (req,res) => {
 
     let receivedChallenges = [];
     for(const c of challenges){
-      let user = await User.findByPk(c.invitee_id);
+      let user = await User.findByPk(c.challenger_id);
       //user = user.get({plain: true});
       receivedChallenges.push({
         ...c,
@@ -117,19 +117,19 @@ router.get('/acceptedChallenges', async (req,res) => {
         status: 1
       }
     });
-
     challenges = challenges.map(c=>c.get({plain: true}));
-
+    
     let acceptedChallenges = [];
+    console.log('we getting here/')
     for(const c of challenges){
-      let user = await User.findByPk(c.invitee_id);
+      let user = await User.findByPk(c.challenger_id);
       user = user.get({plain: true});
       acceptedChallenges.push({
         ...c,
         username: user.username
       })
     }
-    console.log(sentChallenges);
+    console.log(acceptedChallenges);
 
     res.json(acceptedChallenges)
   } catch (err){
