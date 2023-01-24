@@ -4,6 +4,7 @@ const receivedBtns =  document.querySelector('.received-friends-row');
 const searchBtn = document.querySelector('.searchBtn');
 const searchField = document.querySelector('.searchField');
 const userList = document.querySelector(".userList");
+const wordField = document.querySelector('.word-field');
 
 const cancelFriendRequest = id => {
 	fetch('/api/users/addFriend',{
@@ -37,6 +38,22 @@ friendBtns.addEventListener('click',(event)=>{
 	if(event.target.matches('.challenge-btn')){
 		id = event.target.getAttribute('data-id');
 		console.log(id);
+		// prompt word entry
+		const wordInput = document.createElement('input');		
+		wordInput.setAttribute('data-id', 'word-field');
+		wordInput.setAttribute('data-type', 'text');
+		wordInput.textContent = "Enter Word";
+		friendBtns.appendChild(wordInput);
+		
+
+
+		fetch('/api/challenges/',{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({name:wordInput.value})
+	})
 	}
 });
 
