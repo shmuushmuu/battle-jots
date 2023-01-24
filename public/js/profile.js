@@ -196,13 +196,16 @@ acceptedChallengesBtn.addEventListener('click', event => {
         const timestamp = document.createElement('p');
         timestamp.textContent = "" + challenge.createdAt;
         const title = document.createElement('h5');
-        title.textContent = "Invitee: " + challenge.username;
-        const word = document.createElement('pre');
-        word.setAttribute('class', 'border border-1 rounded m-1 p-1');
+        title.textContent = "Challenger: " + challenge.username;
+        const goBtn = document.createElement('button');
+        goBtn.setAttribute('class', 'btn btn-secondary goChl mb-2');
+        goBtn.setAttribute('data-id',challenge.id);
+        goBtn.textContent = "Play Game";
         //word.textContent = "The word: " + challenge.word;
 
         col.appendChild(timestamp);
         col.appendChild(title);
+        col.appendChild(goBtn);
         challengeData.append(col)
       })
       //challengeData
@@ -220,5 +223,9 @@ challengeData.addEventListener('click', event => {
       body: JSON.stringify({ id: id })
     }).then(response=>response.json())
     .then(data=>window.location.replace(`/game/${id}`))
+  }
+  else if(event.target.matches('.goChl')){
+    const id = event.target.getAttribute('data-id');
+    window.location.replace(`/game/${id}`);
   }
 })
