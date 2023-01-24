@@ -151,3 +151,53 @@ sentChallengesBtn.addEventListener('click', event => {
       //challengeData
     });
 })
+
+receivedChallengesBtn.addEventListener('click', event => {
+  fetch('/api/challenges/receivedChallenges')
+    .then(response => response.json())
+    .then(data=> {
+      console.log(data);
+      challengeData.innerHTML = "";
+      data.map(challenge=>{
+        const col = document.createElement('div');
+        col.setAttribute('class','col-12 bg bg-dark text-light mb-1');
+        const timestamp = document.createElement('p');
+        timestamp.textContent = "" + challenge.createdAt;
+        const title = document.createElement('h5');
+        title.textContent = "Invitee: " + challenge.username;
+        const word = document.createElement('pre');
+        word.setAttribute('class','border border-1 rounded m-1 p-1')
+        word.textContent = "The word: " + challenge.word;
+
+        col.appendChild(timestamp);
+        col.appendChild(title);
+        challengeData.append(col)
+      })
+      //challengeData
+    });
+})
+
+acceptedChallengesBtn.addEventListener('click', event => {
+  fetch('/api/challenges/acceptedChallenges')
+    .then(response => response.json())
+    .then(data=> {
+      console.log(data);
+      challengeData.innerHTML = "";
+      data.map(challenge=>{
+        const col = document.createElement('div');
+        col.setAttribute('class','col-12 bg bg-dark text-light mb-1');
+        const timestamp = document.createElement('p');
+        timestamp.textContent = "" + challenge.createdAt;
+        const title = document.createElement('h5');
+        title.textContent = "Invitee: " + challenge.username;
+        const word = document.createElement('pre');
+        word.setAttribute('class','border border-1 rounded m-1 p-1')
+        //word.textContent = "The word: " + challenge.word;
+
+        col.appendChild(timestamp);
+        col.appendChild(title);
+        challengeData.append(col)
+      })
+      //challengeData
+    });
+})
