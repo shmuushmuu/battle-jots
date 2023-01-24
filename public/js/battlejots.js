@@ -9,29 +9,29 @@ let rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(rightGuessString);
 
 function initBoard() {
-  let jot = document.getElementById("jot-board");
+  // let jot = document.getElementById("jot-board");
   let board = document.getElementById("game-board");
-  let oppBoard = document.getElementById("opponent-board");
+  // let oppBoard = document.getElementById("opponent-board");
 
   for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
     let row = document.createElement("div");
-    let oppRow = document.createElement("div");
+    // let oppRow = document.createElement("div");
     row.className = "letter-row";
-    oppRow.className = "opponent-row";
+    // oppRow.className = "opponent-row";
 
     for (let j = 0; j < 5; j++) {
       let box = document.createElement("div");
       box.className = "letter-box";
       row.appendChild(box);
-      let oppBox = document.createElement("div");
-      oppBox.className = "opponent-box";
-      oppRow.appendChild(oppBox);
+      // let oppBox = document.createElement("div");
+      // oppBox.className = "opponent-box";
+      // oppRow.appendChild(oppBox);
     }
 
     board.appendChild(row)
-    oppBoard.appendChild(oppRow)
-    jot.appendChild(oppBoard)
-    jot.appendChild(board)
+    // oppBoard.appendChild(oppRow)
+    // jot.appendChild(oppBoard)
+  //   jot.appendChild(board)
   }
 }
 
