@@ -1,47 +1,19 @@
 <div class="container-fluid bg-grey">
 <h1>Welcome, {{username}}</h1>
-<div class="container">
-	<h2>Friends</h2>
-	<div class="row border border-2 rounded friends-row">
-		{{#each friends as |friend|}}
-			<div class="col-12">
-				<h3>{{friend.username}}</h3>
-        <input class="word-field" data-id="word-field" data-type="text">Enter word</div>
-				<button class="btn btn-primary challenge-btn" data-id="{{friend.user_id}}">Challenge</button>
-			</div>
-		{{/each}}
-	</div>
-</div>
-<div class="container">
-	<h2>Sent Friend Requests</h2>
-	<div class="row border border-2 rounded sent-friends-row">
-		{{#each sentRequests as |sentRequest|}}
-			<div class="col-12">
-				<h3>{{sentRequest.username}}</h3>
-				<button class="btn btn-danger cancel-btn" data-id="{{sentRequest.id}}">Cancel</button>
-			</div>
-		{{/each}}
-	</div>
-</div>
-<div class="container">
-	<h2>Incoming Friend Requests</h2>
-	<div class="row border border-2 rounded received-friends-row">
-		{{#each receivedRequests as |receivedRequest|}}
-			<div class="col-12">
-				<h3>{{receivedRequest.username}}</h3>
-				<button class="btn btn-success accept-btn" data-id="{{receivedRequest.id}}">Accept</button>
-				<button class="btn btn-danger cancel-btn" data-id="{{receivedRequest.id}}">Decline</button>
-			</div>
-		{{/each}}
-	</div>
-</div>
-<div class="container">
-	<h2>Search for a user</h2>
-	<input class="searchField" placeholder="username"></input>
-	<button class="btn btn-success searchBtn">Search</button>
-	<ul class="userList">
-	</ul>
-</div>
+<ul class="nav nav-tabs justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Active</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled">Disabled</a>
+  </li>
+</ul>
 <div class="container">
 	<div class="row">
 		<div class="col-4">
@@ -55,7 +27,54 @@
 		</div>
 	</div>
 	<div class="row challenge-data">
-		
+	</div>
+</div>
+<div class="row">
+	<div class="col-6">
+		<div class="container">
+			<h2>Friends</h2>
+			<div class="row border border-2 rounded friends-row">
+				{{#each friends as |friend|}}
+				<div class="col-12">
+					<h3>{{friend.username}}</h3>
+					<input class="word-field" data-id="word-field" data-type="text">Enter word
+				</div>
+				<button class="btn btn-primary challenge-btn" data-id={{friend.user_id}}>Challenge</button>
+			</div>
+			{{/each}}
+		</div>
+	</div>
+	<div class="container">
+		<h2>Search for a user</h2>
+		<input class="searchField" placeholder="username"></input>
+		<button class="btn btn-success searchBtn">Search</button>
+		<ul class="userList">
+		</ul>
+	</div>
+</div>
+<div class="col-6">
+	<div class="container">
+		<h2>Sent Friend Requests</h2>
+		<div class="row border border-2 rounded sent-friends-row">
+			{{#each sentRequests as |sentRequest|}}
+			<div class="col-12">
+				<h3>{{sentRequest.username}}</h3>
+				<button class="btn btn-danger cancel-btn" data-id="{{sentRequest.id}}">Cancel</button>
+			</div>
+			{{/each}}
+		</div>
+	</div>
+	<div class="container">
+		<h2>Incoming Friend Requests</h2>
+		<div class="row border border-2 rounded received-friends-row">
+			{{#each receivedRequests as |receivedRequest|}}
+			<div class="col-12">
+				<h3>{{receivedRequest.username}}</h3>
+				<button class="btn btn-success accept-btn" data-id="{{receivedRequest.id}}">Accept</button>
+				<button class="btn btn-danger cancel-btn" data-id="{{receivedRequest.id}}">Decline</button>
+			</div>
+			{{/each}}
+		</div>
 	</div>
 </div>
 </div>
