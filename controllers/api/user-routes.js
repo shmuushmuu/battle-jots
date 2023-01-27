@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Op = require('Sequelize').Op;
+const Op = require('sequelize').Op;
 const { User, Friends } = require('../../models');
 
 router.post('/findUser', async (req, res) => {

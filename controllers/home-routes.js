@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Friends, User, Challenge } = require('../models/');
-const Op = require('Sequelize').Op;
+const Op = require('sequelize').Op;
 // get all posts for homepage
 router.get('/', async (req, res) => {
   try {
